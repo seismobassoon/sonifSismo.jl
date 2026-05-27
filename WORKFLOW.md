@@ -100,3 +100,52 @@ featured earthquake.
 The waveform-loading and processing functions intentionally return `Seis`
 traces. They can later feed resampling and WAV export without changing the
 archive or event-selection layer.
+
+## Minimal Sonification Example
+
+The standalone example in `examples/sonify_one_trace.jl` reads the May 29 LFE
+vertical-component trace and writes several exploratory WAV files to `audio/`:
+
+```bash
+julia --project=. examples/sonify_one_trace.jl
+```
+
+In a notebook, reuse its helper functions with any single trace:
+
+```julia
+include("examples/sonify_one_trace.jl")
+
+plain = sonify_trace(trace; acceleration=100)
+colored = sonify_trace(trace; acceleration=100, harmonics=(0.18, 0.08))
+up = sonify_trace(trace; acceleration=100, octave=1)
+
+write_sonification("audio/plain.wav", plain)
+write_sonification("audio/colored.wav", colored)
+write_sonification("audio/up.wav", up)
+```
+
+To generate the reproducible May 29 LFE files from inside the notebook:
+
+```julia
+mwe = run_lfe_mwe()
+mwe.lfe
+mwe.trace
+```
+
+The minimal octave option is implemented through playback-rate scaling:
+increasing the octave raises pitch but also shortens duration. The `harmonics`
+option changes timbre without changing duration. For an experimental hybrid
+with an external WAV file:
+
+```julia
+hybrid = convolve_with_audio(
+    colored,
+    "/absolute/path/to/music.wav";
+    kernel_seconds=1.5,
+    mix=0.3,
+)
+write_sonification("audio/music_convolution.wav", hybrid)
+```
+
+A music excerpt used as a convolution kernel intentionally gives a smeared
+texture; a measured impulse-response WAV gives a more conventional reverb.

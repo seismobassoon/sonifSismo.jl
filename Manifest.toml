@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "5b39572732885529f695741b633866d22835b2a6"
+project_hash = "3307ff2961d383cdf063c21a682d59af1a3fcd1f"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -463,7 +463,6 @@ version = "1.11.0"
 
 [[deps.Geodesics]]
 git-tree-sha1 = "2278543c66ccc9911dcf114bcbf0768bed2ad25a"
-repo-rev = "master"
 repo-url = "https://github.com/anowacki/Geodesics.jl"
 uuid = "6aaf26a4-c633-11e8-35ae-8904cb805353"
 version = "0.2.4"
@@ -1250,7 +1249,6 @@ version = "1.3.0"
 [[deps.Seis]]
 deps = ["DSP", "Dates", "FFTW", "Geodesics", "Glob", "LibMseed", "LinearAlgebra", "RecipesBase", "StaticArrays", "StationXML", "Statistics"]
 git-tree-sha1 = "0ceffbc7c73e6188f61f8ee5f67eabd6337014c9"
-repo-rev = "master"
 repo-url = "https://github.com/anowacki/Seis.jl"
 uuid = "dd80f4d8-c2f6-58bd-9bd3-4635f134261d"
 version = "0.3.10"
@@ -1309,7 +1307,7 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 version = "1.11.0"
 
 [[deps.SonifSismo]]
-deps = ["Dates", "Geodesics", "Seis", "Statistics"]
+deps = ["CairoMakie", "DSP", "Dates", "Geodesics", "Seis", "Statistics", "WAV"]
 path = "."
 uuid = "6c494fdb-b37e-46ba-84bd-0694aa9f58b0"
 version = "0.1.0"
@@ -1542,6 +1540,12 @@ version = "1.28.0"
     Latexify = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
     NaNMath = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
     Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[[deps.WAV]]
+deps = ["Base64", "FileIO", "Libdl", "Logging"]
+git-tree-sha1 = "7e7e1b4686995aaf4ecaaf52f6cd824fa6bd6aa5"
+uuid = "8149f6b0-98f6-5db9-b78f-408fbbb8ef88"
+version = "1.2.0"
 
 [[deps.WebP]]
 deps = ["CEnum", "ColorTypes", "FileIO", "FixedPointNumbers", "ImageCore", "libwebp_jll"]
