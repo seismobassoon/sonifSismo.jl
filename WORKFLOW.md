@@ -57,6 +57,29 @@ traces = read_window(
 )
 ```
 
+For a window spanning midnight or multiple daily files, request one
+continuous trace per component with `merge=true`. Times remain in UTC:
+
+```julia
+start_time = DateTime(2008, 5, 28, 23, 59, 30)
+end_time = DateTime(2008, 5, 29, 0, 0, 30)
+
+traces = read_window(
+    archive,
+    start_time,
+    end_time;
+    stations="FUJ",
+    channels=["wE", "wN", "wU"],
+    merge=true,
+    processed=true,
+    bandpass=(0.5, 15.0),
+)
+```
+
+By default, merging raises an error if data are missing within the requested
+window. For listening experiments where an explicit gap policy is acceptable,
+use `merge_gaps=:zero` or `merge_gaps=:linear`.
+
 ## Filtering And Time-Frequency Data
 
 `suggest_filters(traces)` supplies conservative exploratory starting bands

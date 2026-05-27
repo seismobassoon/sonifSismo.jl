@@ -39,6 +39,21 @@ end
         @test Seis.enddate(only(traces)) == stop
         @test Seis.nsamples(only(traces)) == 101
 
+        midnight_start = DateTime(2008, 5, 28, 23, 59, 30)
+        midnight_stop = DateTime(2008, 5, 29, 0, 0, 30)
+        daily_parts = read_window(
+            archive, midnight_start, midnight_stop; stations="FUJ", channels="wU",
+        )
+        @test length(daily_parts) == 2
+        continuous = read_window(
+            archive, midnight_start, midnight_stop;
+            stations="FUJ", channels="wU", merge=true,
+        )
+        @test length(continuous) == 1
+        @test Seis.startdate(only(continuous)) == midnight_start
+        @test Seis.enddate(only(continuous)) == midnight_stop
+        @test Seis.nsamples(only(continuous)) == 6001
+
         recipes = suggest_filters(traces)
         @test any(recipe -> recipe.name == :broadband, recipes)
         processed = process_traces(traces; bandpass=(0.5, 10.0))

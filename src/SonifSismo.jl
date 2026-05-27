@@ -385,11 +385,16 @@ end
 
 """
     read_window(archive, start_utc, stop_utc; stations=nothing, channels=nothing,
+                merge=false, merge_gaps=:error, merge_overlaps=:mean,
                 processed=false, process_kwargs...)
 
 Read daily miniSEED files overlapping a UTC interval and trim each returned
-continuous trace to that interval. Set `processed=true` to apply
-`process_traces` with the supplied processing keyword arguments.
+continuous trace to that interval. Set `merge=true` to join daily pieces into
+one trace for each network/station/location/channel combination. Missing data
+raise an error by default when merging; pass `merge_gaps=:zero` or
+`merge_gaps=:linear` to fill gaps explicitly. Set `processed=true` to apply
+`process_traces` after optional merging with the supplied processing keyword
+arguments.
 """
 function read_window(
     archive::DataArchive,
@@ -398,6 +403,9 @@ function read_window(
     stations=nothing,
     channels=nothing,
     maximum_gap=nothing,
+    merge::Bool=false,
+    merge_gaps=:error,
+    merge_overlaps=:mean,
     processed::Bool=false,
     process_kwargs...,
 )
@@ -415,6 +423,18 @@ function read_window(
     sort!(traces; by=tr -> (
         string(tr.sta.sta), string(tr.sta.cha), Seis.startdate(tr),
     ))
+    if merge
+        grouped = Dict{NTuple{4,String},Vector{Seis.AbstractTrace}}()
+        for tr in traces
+            key = (string(tr.sta.net), string(tr.sta.sta), string(tr.sta.loc), string(tr.sta.cha))
+            push!(get!(grouped, key, Seis.AbstractTrace[]), tr)
+        end
+        traces = Seis.AbstractTrace[
+            Base.merge(group; gaps=merge_gaps, overlaps=merge_overlaps)
+            for group in values(grouped)
+        ]
+        sort!(traces; by=tr -> (string(tr.sta.sta), string(tr.sta.cha)))
+    end
     return processed ? process_traces(traces; process_kwargs...) : traces
 end
 
