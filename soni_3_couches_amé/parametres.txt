@@ -1,0 +1,59 @@
+═══════════════════════════════════════════════════
+ PARAMÈTRES DE SONIFICATION — 2026-06-04T16:31:58.120
+═══════════════════════════════════════════════════
+
+── DONNÉES SISMIQUES ───────────────────────────────
+Archive        : C:\Users\ameli\Desktop\Stage\mtFujiContinuous
+Station        : MTS2
+Canal          : wE
+Début (UTC)    : 2008-05-30T08:00:00
+Fin   (UTC)    : 2008-05-30T10:00:00
+Durée sismique : 2.0 heures
+Fréq. échant.  : 100.0 Hz
+
+── FILTRES ─────────────────────────────────────────
+Bruit de fond  : 0 – 1.0 Hz
+LFE            : 1.0 – 5.0 Hz
+EQ             : 5.0 – 15.0 Hz
+
+── SONIFICATION ────────────────────────────────────
+Accélération   : 200
+Durée audio    : 72.0 s
+
+── COUCHE BRUIT DE FOND ────────────────────────────
+Octave         : -1
+Harmoniques    : (0.3, 0.0)
+Gain           : 1
+Saturation     : soft
+Volume mixage  : 0.1
+
+── COUCHE LFE ──────────────────────────────────────
+Octave         : 0
+Harmoniques    : (0.2, 0.1)
+Gain           : 3
+Saturation     : soft
+Volume mixage  : 0.4
+
+── COUCHE EQ ───────────────────────────────────────
+Octave         : 1
+Harmoniques    : (0.1, 0.2)
+Gain           : 4
+Saturation     : soft
+Volume mixage  : 0.7
+
+── PARAMÈTRES MUSICAUX ─────────────────────────────
+Gamme          : TuningSystems.TuningSystem{Rational{Int64}}(12, Rational{Int64}[1, 16//15, 9//8, 6//5, 5//4, 4//3, 45//32, 3//2, 8//5, 5//3, 16//9, 15//8], "Just", ["1//1", "16//15", "9//8", "6//5", "5//4", "4//3", "45//32", "3//2", "8//5", "5//3", "16//9", "15//8"])
+Fréquence root : 130.81 Hz
+Accord BG      : C G
+Accord LFE     : C E G
+Accord EQ      : A C E
+BPM            : 100
+
+── QUANTIFICATION ──────────────────────────────────
+Durée note LFE : 0.5 s (blanche)
+Seuil LFE      : 0.1
+Durée note EQ  : 0.25 s (noire)
+Seuil EQ       : 0.2
+
+
+═══════════════════════════════════════════════════
